@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public interface AutenticacionService {
 
-    String[] validarUsuario(LoginRequestDTO loginRequestDTO) throws IOException;//por defecto son public
+    String[] validarUsuario(LoginRequestDTO loginRequestDTO) throws IOException;
 
 
 }

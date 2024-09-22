@@ -18,11 +18,13 @@ public class AutenticacionServiceImpl implements AutenticacionService {
     ResourceLoader resourceLoader;
 
     @Override
-    public String[] validarUsuario(LoginRequestDTO loginRequestDTO) throws IOException{
+    public String[] validarUsuario(LoginRequestDTO loginRequestDTO) throws IOException {
+
         String[] datosUsuario = null;
         Resource resource = resourceLoader.getResource("classpath:usuarios.txt");
 
-        try(BufferedReader br = new BufferedReader(new FileReader(resource.getFile()))){
+        try (BufferedReader br = new BufferedReader(new FileReader(resource.getFile()))) {
+
             String linea;
             while ((linea = br.readLine()) != null) {
 
@@ -36,11 +38,14 @@ public class AutenticacionServiceImpl implements AutenticacionService {
                     datosUsuario[1] = datos[4]; // Recuperar email
 
                 }
-            }
-        } catch (IOException e) {
-            throw new IOException(e);//Enviamos la excepcion al controller
-        }
-        return datosUsuario;
 
+            }
+
+        } catch (IOException e) {
+            datosUsuario = null;
+            throw new IOException(e);
+        }
+
+        return datosUsuario;
     }
 }
