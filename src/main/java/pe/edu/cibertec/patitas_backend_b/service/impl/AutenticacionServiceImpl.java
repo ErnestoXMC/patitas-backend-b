@@ -8,7 +8,6 @@ import pe.edu.cibertec.patitas_backend_b.dto.LoginRequestDTO;
 import pe.edu.cibertec.patitas_backend_b.service.AutenticacionService;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -41,6 +40,7 @@ public class AutenticacionServiceImpl implements AutenticacionService {
         } catch (IOException e) {
             throw new IOException(e);//Enviamos la excepcion al controller
         }
-        return new String[0];
+        return datosUsuario;
+
     }
 }

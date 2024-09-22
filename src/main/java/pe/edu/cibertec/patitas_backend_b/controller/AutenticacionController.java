@@ -19,5 +19,4 @@ public class AutenticacionController {
         return new LoginResponseDTO("00", "", "Julio Chavez", "juliochavez@gmail.com");
     }
 
-
 }
