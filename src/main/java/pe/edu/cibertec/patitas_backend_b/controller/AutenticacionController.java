@@ -7,11 +7,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pe.edu.cibertec.patitas_backend_b.dto.LoginRequestDTO;
 import pe.edu.cibertec.patitas_backend_b.dto.LoginResponseDTO;
+import pe.edu.cibertec.patitas_backend_b.dto.LogoutRequestDTO;
+import pe.edu.cibertec.patitas_backend_b.dto.LogoutResponseDTO;
 import pe.edu.cibertec.patitas_backend_b.service.AutenticacionService;
 
 import java.io.IOException;
 import java.time.Duration;
 import java.util.Arrays;
+import java.util.Date;
 
 @RestController
 @RequestMapping("/autenticacion")
@@ -30,19 +33,36 @@ AutenticacionService autenticacionService;
             System.out.println("Respuesta backend: " + Arrays.toString(datosUsuario));
 
             if (datosUsuario == null) {
-                return new LoginResponseDTO("01", "Error: Usuario no encontrado", "", "");
+                return new LoginResponseDTO("01", "Error: Usuario no encontrado", "","", "", "");
             }
-            return new LoginResponseDTO("00", "", datosUsuario[0], datosUsuario[1]);
+            return new LoginResponseDTO("00", "", datosUsuario[1],  datosUsuario[0], datosUsuario[2], datosUsuario[3]);
 
         } catch (Exception e) {
 
             System.out.println(e.getMessage());
-            return new LoginResponseDTO("99", "Error: Ocurrió un problema", "", "");
+            return new LoginResponseDTO("99", "Error: Ocurrió un problema", "", "", "", "");
 
         }
-
-
-
     }
+
+    @PostMapping("/logout")
+    public LogoutResponseDTO logout(@RequestBody LogoutRequestDTO logoutRequestDTO) {
+        try {
+            Thread.sleep(Duration.ofSeconds(2));
+            Date fechaLogout = autenticacionService.cerrarSesionUsuario(logoutRequestDTO);
+            System.out.println("Respuesta backend: " + fechaLogout);
+
+            if (fechaLogout == null) {
+                return new LogoutResponseDTO(false, null, "Error: No se pudo registrar auditoría");
+            }
+
+            return new LogoutResponseDTO(true, fechaLogout, "");
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new LogoutResponseDTO(false, null, "Error: Ocurrió un problema");
+        }
+    }
+
 
 }
