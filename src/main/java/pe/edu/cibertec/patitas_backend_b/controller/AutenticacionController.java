@@ -27,8 +27,9 @@ AutenticacionService autenticacionService;
     @PostMapping("/login")
     public LoginResponseDTO login(@RequestBody LoginRequestDTO loginRequestDTO){
 
+
         try {
-            Thread.sleep(Duration.ofSeconds(2));//dormimos el sistema por 3 segundos antes de mandar una respuesta
+            Thread.sleep(Duration.ofSeconds(2));//dormimos el sistema por 60 segundos antes de mandar una respuesta
             String[] datosUsuario = autenticacionService.validarUsuario(loginRequestDTO);
             System.out.println("Respuesta backend: " + Arrays.toString(datosUsuario));
 
